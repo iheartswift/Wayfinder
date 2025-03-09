@@ -11,7 +11,6 @@ public enum PresentationStyle {
 
 /// A generic navigator (or router) that manages navigation state.
 /// The generic parameter `Route` must conform to `Routable`.
-@MainActor
 public final class Wayfinder<Route: Routable>: ObservableObject {
     
     /// The navigation path for push-style navigation.
@@ -35,6 +34,7 @@ public final class Wayfinder<Route: Routable>: ObservableObject {
         case .push:
             path.append(route)
         case .sheet:
+            sheet = nil
             sheet = route
             sheetDetents = [] // No detents provided.
         case .sheetWithDetents(let detents):

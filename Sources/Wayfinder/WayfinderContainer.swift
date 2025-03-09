@@ -8,11 +8,12 @@
 import SwiftUI
 
 public struct WayfinderContainer<Route: Routable>: View {
-    @StateObject private var wayfinder = Wayfinder<Route>()
+    @ObservedObject var wayfinder: Wayfinder<Route> // Changed from @StateObject private var
     private let initialRoute: Route
     private let viewResolver: (Route) -> AnyView
 
-    public init(initialRoute: Route, viewResolver: @escaping (Route) -> AnyView) {
+    public init(wayfinder: Wayfinder<Route>, initialRoute: Route, viewResolver: @escaping (Route) -> AnyView) {
+        self.wayfinder = wayfinder
         self.initialRoute = initialRoute
         self.viewResolver = viewResolver
     }
